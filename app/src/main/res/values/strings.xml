@@ -5,4 +5,8 @@
     <string name="textview">TextView</string>
     <string name="submit"/>
     <string name="info"/>
+    <string name="insert_item">Insert item</string>
+    <string name="line_1">Line 1</string>
+    <string name="line_2">Line 2</string>
+    <string name="todo">TODO</string>
 </resources>
