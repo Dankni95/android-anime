@@ -2,6 +2,7 @@ package com.watch.anime
 
 import android.app.Activity
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -21,6 +22,8 @@ class MainActivity : Activity(), EpisodeAdapter.OnItemClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
         val autoCompleteTextView = findViewById<View>(R.id.autoTextView) as AutoCompleteTextView
         val epTextView = findViewById<View>(R.id.recycler_view) as RecyclerView
 
@@ -77,9 +80,5 @@ class MainActivity : Activity(), EpisodeAdapter.OnItemClickListener {
         val intent = Intent(this, VideoActivity::class.java)
         intent.putExtra("video_link", embedUrl)
         startActivity(intent)
-
-
     }
-
-
 }

@@ -50,7 +50,7 @@ class EmbedUrl() : AsyncTask<String, Void, String>() {
         val json = JSONObject(data)
 
         // TODO Selects hardcoded quality
-        val urls = JSONObject(json.getJSONArray("source")[3].toString())
+        val urls = JSONObject(json.getJSONArray("source")[2].toString())
 
         Log.d("FILE", urls.getString("file"))
 
