@@ -12,7 +12,6 @@
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
             android:hint="Enter anime name"/>
-
     <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -24,10 +23,5 @@
                 android:clipToPadding="false"
                 android:padding="4dp"
                 tools:listitem="@layout/example_item" />
-
-
     </ScrollView>
-
-
-
 </LinearLayout>

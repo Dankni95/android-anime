@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 
-class EpisodeAdapter(private val exampleList: List<Items>) :
+class EpisodeAdapter(private val listener: OnItemClickListener, private val exampleList: List<Items>) :
     RecyclerView.Adapter<EpisodeAdapter.EpisodeViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EpisodeViewHolder {
@@ -28,13 +28,28 @@ class EpisodeAdapter(private val exampleList: List<Items>) :
 
     override fun getItemCount() = exampleList.size
 
-    class EpisodeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+    inner class EpisodeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
+    View.OnClickListener {
         val imageView: ImageView = itemView.findViewById(R.id.image_view)
         val textView1: TextView = itemView.findViewById(R.id.text_view_1)
         val textView2: TextView = itemView.findViewById(R.id.text_view_2)
+
+
+        init {
+            itemView.setOnClickListener(this)
+        }
+
+
+        override fun onClick(v: View?) {
+            val position = adapterPosition
+            if (position != RecyclerView.NO_POSITION) {
+                listener.onItemClick(position, exampleList)
+            }
+        }
     }
 
-    interface OnItemClickListener {
-        fun onItemClick(position: Int,exampleList:List<Items>, rAdapter:EpisodeAdapter)
+interface OnItemClickListener {
+        fun onItemClick(position: Int,exampleList:List<Items>)
     }
 }

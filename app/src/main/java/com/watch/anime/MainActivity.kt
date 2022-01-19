@@ -1,6 +1,7 @@
 package com.watch.anime
 
 import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -14,6 +15,7 @@ import java.util.concurrent.TimeUnit
 
 class MainActivity : Activity(), EpisodeAdapter.OnItemClickListener {
     private var searchedAnime: MutableList<String> = ArrayList()
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,19 +42,19 @@ class MainActivity : Activity(), EpisodeAdapter.OnItemClickListener {
                 }, 10)
             }
 
-            autoCompleteTextView.setOnItemClickListener { parent, arg1, pos, id ->
-                val episode = Episode()
-                val exampleList = generateDummyList(episode.execute(autoCompleteTextView.editableText.toString()).get().toInt(),autoCompleteTextView)
-                val rAdapter = EpisodeAdapter(exampleList)
+        autoCompleteTextView.setOnItemClickListener { parent, arg1, pos, id ->
+            val episode = Episode()
+            val exampleList = generateEpisodesList(episode.execute(autoCompleteTextView.editableText.toString()).get().toInt(),autoCompleteTextView)
+            val rAdapter = EpisodeAdapter(this,exampleList)
 
-                epTextView.adapter = rAdapter
-                epTextView.layoutManager = LinearLayoutManager(this)
-                epTextView.setHasFixedSize(true)
-                autoCompleteTextView.editableText.clear()
-            }
+            epTextView.adapter = rAdapter
+            epTextView.layoutManager = LinearLayoutManager(this)
+            epTextView.setHasFixedSize(true)
+            autoCompleteTextView.editableText.clear()
         }
+    }
 
-    private fun generateDummyList(size: Int, autoCompleteTextView:AutoCompleteTextView): ArrayList<Items> {
+    private fun generateEpisodesList(size: Int, autoCompleteTextView:AutoCompleteTextView): ArrayList<Items> {
 
         val list = ArrayList<Items>()
 
@@ -64,13 +66,20 @@ class MainActivity : Activity(), EpisodeAdapter.OnItemClickListener {
         return list
     }
 
-    // TODO: Onclick does not work ://
+    override fun onItemClick(position: Int, exampleList:List<Items>) {
 
-    override fun onItemClick(position: Int, exampleList:List<Items>, rAdapter:EpisodeAdapter) {
-        Toast.makeText(this, "Item $position clicked", Toast.LENGTH_SHORT).show()
         val clickedItem = exampleList[position]
         Log.d("clicked", clickedItem.text2)
-        rAdapter.notifyItemChanged(position)
+
+        val episode = clickedItem.text2.replace(" ", "-")+ "-" + clickedItem.text1.replace(" ", "-")
+        val embedUrl = EmbedUrl().execute(episode).get()
+
+        val intent = Intent(this, VideoActivity::class.java)
+        intent.putExtra("video_link", embedUrl)
+        startActivity(intent)
+
+
     }
+
 
 }

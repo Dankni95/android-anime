@@ -10,8 +10,12 @@ class Episode() : AsyncTask<String, Void, String>() {
 
         val search = anime[0]?.replace(" ", "-")
         val doc: Document = Jsoup.connect("https://gogoanime.film/category/$search").get()
+        val episodes = doc.getElementsByClass("active").select("a").attr("ep_end")
 
-        return doc.getElementsByClass("active").select("a").attr("ep_end")
+        Log.d("------------Episodes-----------", episodes.toString())
+
+
+        return episodes
     }
 
 

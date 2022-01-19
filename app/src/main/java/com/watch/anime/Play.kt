@@ -1,13 +1,8 @@
 package com.watch.anime
 
-import android.content.Intent
 import android.media.AudioAttributes
 import android.media.MediaPlayer
-import android.net.Uri
 import android.os.AsyncTask
-import android.provider.MediaStore
-import androidx.core.content.ContextCompat.startActivity
-import androidx.core.net.toUri
 
 
 class Play : AsyncTask<String, Void, MediaPlayer>() {
