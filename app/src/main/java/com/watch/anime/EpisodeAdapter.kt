@@ -1,15 +1,19 @@
 package com.watch.anime
 
+import android.os.SystemClock
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 
 class EpisodeAdapter(private val listener: OnItemClickListener, private val exampleList: List<Items>) :
     RecyclerView.Adapter<EpisodeAdapter.EpisodeViewHolder>() {
+    var mLastClickTime: Long = 0
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EpisodeViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.example_item,
@@ -42,10 +46,18 @@ class EpisodeAdapter(private val listener: OnItemClickListener, private val exam
 
 
         override fun onClick(v: View?) {
+
+
+            // mis-clicking prevention, using threshold of 1000 ms
+            if (SystemClock.elapsedRealtime() - mLastClickTime < 1000){
+                return;
+            }
             val position = adapterPosition
             if (position != RecyclerView.NO_POSITION) {
                 listener.onItemClick(position, exampleList)
             }
+            mLastClickTime = SystemClock.elapsedRealtime();
+
         }
     }
 

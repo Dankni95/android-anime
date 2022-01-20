@@ -5,16 +5,21 @@
               android:layout_width="match_parent"
               android:id="@+id/linear_layout"
               android:gravity="center" tools:ignore="NamespaceTypo" android:layout_height="match_parent">
-
     <AutoCompleteTextView
             android:id="@+id/autoTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
             android:hint="Enter anime name"/>
+
+<RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+
+
+
     <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
 
         <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view"
@@ -23,5 +28,18 @@
                 android:clipToPadding="false"
                 android:padding="4dp"
                 tools:listitem="@layout/example_item" />
+
+
     </ScrollView>
+
+    <ProgressBar
+            android:visibility="gone"
+            android:id="@+id/progressBar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="150dp"
+            android:background="#99000000 "
+            android:layout_gravity="center"/>
+
+</RelativeLayout>
 </LinearLayout>

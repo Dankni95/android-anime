@@ -58,6 +58,7 @@ dependencies {
     implementation 'com.jakewharton.rxbinding:rxbinding:1.0.1'
     implementation 'javax.xml.bind:jaxb-api:2.3.1'
     implementation group: 'xerces', name: 'xercesImpl', version: '2.12.0'
-    implementation 'com.warnyul.android.fast-video-view:fast-video-view:1.0.2'
+    implementation 'com.google.android.material:material:1.5.0'
+
 }
 

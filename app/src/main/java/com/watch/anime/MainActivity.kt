@@ -4,9 +4,12 @@ import android.app.Activity
 import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.os.Bundle
+import android.os.SystemClock
 import android.util.Log
 import android.view.View
-import android.widget.*
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
+import android.widget.ProgressBar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.jakewharton.rxbinding.widget.RxTextView
@@ -47,13 +50,17 @@ class MainActivity : Activity(), EpisodeAdapter.OnItemClickListener {
 
         autoCompleteTextView.setOnItemClickListener { parent, arg1, pos, id ->
             val episode = Episode()
-            val exampleList = generateEpisodesList(episode.execute(autoCompleteTextView.editableText.toString()).get().toInt(),autoCompleteTextView)
-            val rAdapter = EpisodeAdapter(this,exampleList)
+            val exampleList = generateEpisodesList(
+                episode.execute(autoCompleteTextView.editableText.toString()).get().toInt(),
+                autoCompleteTextView
+            )
+            val rAdapter = EpisodeAdapter(this, exampleList)
 
             epTextView.adapter = rAdapter
             epTextView.layoutManager = LinearLayoutManager(this)
             epTextView.setHasFixedSize(true)
             autoCompleteTextView.editableText.clear()
+
         }
     }
 
@@ -70,15 +77,28 @@ class MainActivity : Activity(), EpisodeAdapter.OnItemClickListener {
     }
 
     override fun onItemClick(position: Int, exampleList:List<Items>) {
+        val progressBar = findViewById<View>(R.id.progressBar) as ProgressBar
+        progressBar.visibility = View.VISIBLE
+        progressBar.setEnabled(false)
+
 
         val clickedItem = exampleList[position]
         Log.d("clicked", clickedItem.text2)
 
-        val episode = clickedItem.text2.replace(" ", "-")+ "-" + clickedItem.text1.replace(" ", "-")
+        val episode = clickedItem.text2.replace(" ", "-") + "-" + clickedItem.text1.replace(" ", "-")
         val embedUrl = EmbedUrl().execute(episode).get()
 
         val intent = Intent(this, VideoActivity::class.java)
         intent.putExtra("video_link", embedUrl)
         startActivity(intent)
+
+
+    }
+
+    override fun onResume() {
+        val progressBar = findViewById<View>(R.id.progressBar) as ProgressBar
+        progressBar.visibility = View.GONE
+        super.onResume()
+
     }
 }

@@ -1,13 +1,13 @@
 package com.watch.anime
 
 import android.app.Activity
-import android.media.AudioAttributes
 import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Bundle
 import android.util.DisplayMetrics
 import android.view.*
 import android.widget.ProgressBar
+import android.widget.TextView
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
@@ -23,7 +23,7 @@ class VideoActivity : Activity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.videoview)
         surfaceView = findViewById<View>(R.id.surfaceView) as SurfaceView
-        progressBar = findViewById<View>(R.id.progressBar) as ProgressBar
+        progressBar = findViewById<View>(R.id.progress) as ProgressBar
         val extras = intent.extras
         val url = extras?.getString("video_link");
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
