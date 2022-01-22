@@ -3,8 +3,9 @@ package com.watch.anime
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.ActivityInfo
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.os.Bundle
-import android.os.SystemClock
 import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
@@ -13,7 +14,10 @@ import android.widget.ProgressBar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.jakewharton.rxbinding.widget.RxTextView
+import org.jsoup.Connection
 import rx.android.schedulers.AndroidSchedulers
+import java.io.File
+import java.io.FileOutputStream
 import java.util.concurrent.TimeUnit
 
 
@@ -49,11 +53,16 @@ class MainActivity : Activity(), EpisodeAdapter.OnItemClickListener {
             }
 
         autoCompleteTextView.setOnItemClickListener { parent, arg1, pos, id ->
-            val episode = Episode()
-            val exampleList = generateEpisodesList(
-                episode.execute(autoCompleteTextView.editableText.toString()).get().toInt(),
-                autoCompleteTextView
-            )
+            val data = Episode().execute(autoCompleteTextView.editableText.toString(), parent.context.toString()).get()
+            val episode = data[0]
+            val imageUrl = data[1]
+
+
+
+
+
+            val exampleList = generateEpisodesList(episode.toInt(),
+                autoCompleteTextView, imageUrl)
             val rAdapter = EpisodeAdapter(this, exampleList)
 
             epTextView.adapter = rAdapter
@@ -64,12 +73,12 @@ class MainActivity : Activity(), EpisodeAdapter.OnItemClickListener {
         }
     }
 
-    private fun generateEpisodesList(size: Int, autoCompleteTextView:AutoCompleteTextView): ArrayList<Items> {
+    private fun generateEpisodesList(size: Int, autoCompleteTextView:AutoCompleteTextView, img: String): ArrayList<Items> {
 
         val list = ArrayList<Items>()
 
         for (i in 1 until size +1) {
-            val item = Items(R.drawable.ic_android_black_24dp, "Episode $i", autoCompleteTextView.editableText.toString())
+            val item = Items(img, "Episode $i", autoCompleteTextView.editableText.toString())
             list += item
         }
 
@@ -101,4 +110,5 @@ class MainActivity : Activity(), EpisodeAdapter.OnItemClickListener {
         super.onResume()
 
     }
+
 }

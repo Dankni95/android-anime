@@ -8,6 +8,7 @@ import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
 
 
 class EpisodeAdapter(private val listener: OnItemClickListener, private val exampleList: List<Items>) :
@@ -25,7 +26,13 @@ class EpisodeAdapter(private val listener: OnItemClickListener, private val exam
     override fun onBindViewHolder(holder: EpisodeViewHolder, position: Int) {
         val currentItem = exampleList[position]
 
-        holder.imageView.setImageResource(currentItem.imageResource)
+        Picasso.get()
+            .load(currentItem.imageResource)
+            .resize(100, 100)
+            .centerCrop()
+            .into(holder.imageView)
+
+
         holder.textView1.text = currentItem.text1
         holder.textView2.text = currentItem.text2
     }
@@ -35,9 +42,10 @@ class EpisodeAdapter(private val listener: OnItemClickListener, private val exam
 
     inner class EpisodeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
     View.OnClickListener {
-        val imageView: ImageView = itemView.findViewById(R.id.image_view)
-        val textView1: TextView = itemView.findViewById(R.id.text_view_1)
-        val textView2: TextView = itemView.findViewById(R.id.text_view_2)
+        val imageView: ImageView = itemView.findViewById(R.id.mtrl_list_item_icon)
+        val textView1: TextView = itemView.findViewById(R.id.mtrl_list_item_text)
+        val textView2: TextView = itemView.findViewById(R.id.mtrl_list_item_secondary_text)
+
 
 
         init {

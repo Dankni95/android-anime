@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">My Application</string>
     <string name="logButton">Button</string>
     <string name="hint">hint</string>

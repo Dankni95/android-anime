@@ -9,7 +9,19 @@
     <SurfaceView
             android:id="@+id/surfaceView"
             android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:gravity="center"
             android:layout_height="match_parent" />
+
+
+   <Button
+    android:id="@+id/buttonPlay"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="play"
+    android:rotation="90"
+    android:adjustViewBounds="true"
+    android:layout_gravity="center" />
 
     <ProgressBar
             android:id="@+id/progress"
